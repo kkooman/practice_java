@@ -1,0 +1,61 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+	<style>
+        table {
+            font-size: 20px;
+        }
+
+        table td {
+            line-height: 35px;
+            min-width: 100px;
+            max-width: 800px;
+            word-break: break-all;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 400px;
+        }
+	</style>
+</head>
+<body>
+<h1>입력</h1>
+<form name="dataForm" action="/parser" method="POST">
+	<table>
+		<tr>
+			<td>URL</td>
+			<td><input type="text" name="url" th:value="${url}"/></td>
+		</tr>
+		<tr>
+			<td>TYPE</td>
+			<td>
+				<label for="ignoreTag1">HTML 태그 제외</label>
+				<input type="radio" id="ignoreTag1" name="ignoreTag" value="true" th:checked="${ignoreTag}"/>
+				<label for="ignoreTag2">Text 전체</label>
+				<input type="radio" id="ignoreTag2" name="ignoreTag" value="false" th:checked="${!ignoreTag}"/>
+			</td>
+		</tr>
+		<tr>
+			<td>출력단위묶음</td>
+			<td><input type="number" name="bundleCount" th:value="${bundleCount}" min="1"/></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><input type="submit" value="출력"/></td>
+		</tr>
+	</table>
+</form>
+<div th:if="${bundle != null}">
+	<h1>출력</h1>
+	<table>
+		<tr>
+			<td>몫</td>
+			<td th:text="${bundle.quotient}"></td>
+		</tr>
+		<tr>
+			<td>나머지</td>
+			<td th:text="${bundle.remainder}"></td>
+		</tr>
+	</table>
+</div>
+</body>
+</html>
